@@ -13,16 +13,16 @@ I blogged about it some years ago !!
 [Helpers and Utils are Code-Smells (Nov 2005)](https://learn.microsoft.com/en-us/archive/blogs/rido/helpers-and-utils-are-codesmells)
 
 
-... and I still have a very allergic reaction when see a repo using any of these two words: _helpers_ or _utils_, to mane  classes, methods, namespaces, or any other api surface.
+... and I still have a very allergic reaction with any code base using any of these two words: _helpers_ or _utils_, too often in classes, methods, namespaces, or any other api surface.
 
 
 ### TL;DR;
 
-The most valuable quality of any application is to describe the architecture by having a good design. The design is not a document, is a combination of class names, folder structures, configuration variables, and deployment scripts. All of these artifacts have to work smoothly, by using the same concepts, in terms of _nouns_ and _verbs_, and every single piece of functionality is well defined with clear inputs and outputs establdhed by contracts.
+The most valuable quality of any code base is to describe the architecture by having a good design. The design is not a document, is a combination of class names, folder structures, configuration variables, and deployment scripts. All of these artifacts have to work smoothly, by using the same concepts, in terms of _nouns_ and _verbs_, and every single piece of functionality is well defined with clear inputs and outputs establdhed by contracts.
 
 It might seem unsignificant, but every time I have to browse a folder named _Utils_, to find a dozen of _Helpers_ classes, does not provide any clue of what those _helper* functions might do, or how those work together. This unsignificant detail has huge effects in the maintaibility of the solution. Now, every time you browse the folder, you have to open each individual file to get an idea of what it's purpose is.
 
-In bigger code bases, these might become a nightmare, where every other feature can use those helpers. Now they are tight coupled to their consumers, making future refactoring across the entire codebase.
+In bigger code bases, these might become a nightmare, where every other feature can use those helpers. Now they are tightly coupled to their consumers, making future refactoring across the entire codebase very expensive.
 
 #### How to organize those _helpers_
 
@@ -46,15 +46,11 @@ Now you have a file, eg `CertificateLoader.js` that exposes a method to load cer
 
 ### Few Assemblies, Many classes
 
-Yoy
+You could argue that now my Helper.cs with 12 methods, is spread into 5 files with two or three methods, and now I have to decide if I should put all of those Helpers in a single Assembly, so now I'm appying separation of concerns.
 
-You could argue that now my Helper.cs with 12 methods, is spread 5 files with two or three methods, and now I have to decide if I should put all of those Helpers in a single Assembly, so now I'm appying separation of concerns.
-
-This is also wrong. The deployment has a different complete goal that the source code design. Now we need to have as fewer assemblies as possible, start with one, and have a very thoughtfull process before adding the second assmbly, and always always keep an eye to avoid the typical _assembly_explosion_ we've always seen.
+This is also wrong. The deployment has a different complete goal that the source code design. Now we need to have as fewer assemblies as possible, start with one, and have a very thoughtfull process before adding the second assmbly, and always always keep an eye to avoid the typical _assembly_explosion_ we've seen in many projects.
 
 So as a general rule:
 
-> as few assemblies as possibe, and as many classes as necessary
-
-
+> as few assemblies as possibe, and as many classes as necessary, and never use helpers.
 
