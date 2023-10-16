@@ -16,7 +16,7 @@ So let me introduce what _Tamples_ are.
 
 1. Are small applications that can be used as samples to illustrate how to use the APIs used to build IoT devices.
 2. Are expected to be always connected, if they are not it's because there is a failure in the system. 
-3. Implement a well-known behavior, in terms of Properties, Telemetries and Commands as defined by the [IoT Pattern](./2022-10-02-the-iot-pattern.md)
+3. Implement a well-known behavior, in terms of Properties, Telemetries and Commands as defined by the [IoT Pattern]({% post_url 2022-10-02-the-iot-pattern %})
 
 Now I can write _e2e_ tests assuming the tamples are there, listening to command invocations, so I can write the assertions based on the well-known behavior.
 
