@@ -144,7 +144,7 @@ modcs=$(az iot hub module-identity connection-string show -n $HUB_ID -d $EDGE_ID
 
 # Run/Debug the custom module
 
-Finally, you can run or debug this project by tweaking the configuration so it will connect to the local $edgeHub instance, using the certificate configured for TLS:
+Finally, you can run or debug this project by tweaking the configuration so it will connect to the local `$edgeHub` instance by appending the `;GatewayHostName=localhost` to the module connection string, and using the certificate configured for TLS with the `EdgeModuleCACertificateFile` variable:
 
 ```bash
 export IotHubConnectionString="$modcs;GatewayHostName=localhost"
