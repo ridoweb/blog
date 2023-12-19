@@ -12,7 +12,7 @@ However, most of these tools are in _maintenance_ mode, with no major investment
 
 # An alternative approach to develop IoTEdge modules
 
-A module is just an application, running as a docker container, that communicates with the a system module called $edgeHub via HTTP, AMQP or MQTT protocols. To develop a module we need a local instance of $edgeHub that we can target from the machine we use to develop.
+A module is just an application, running as a docker container, that communicates with the a system module called `$edgeHub` via HTTP, AMQP or MQTT protocols. To develop a module we need a local instance of `$edgeHub` that we can target from the machine we use to develop.
 
 In this post, I'm exploring a different approach to configure your workstation so you can develop and debug modules with your favourite IDE.
 
