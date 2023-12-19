@@ -4,7 +4,7 @@ layout: post
 date: 2023-12-18
 ---
 
-Azure IoT Hub includes support for IoT Edge, a runtime to run custom workload as Modules.
+Azure IoT Hub includes support for IoT Edge, a runtime to run custom workloads as Modules.
 
 There has been different tools to help with this task, extensions for Visual Studio, [Visual Studio Code](https://learn.microsoft.com/en-us/azure/iot-edge/debug-module-vs-code?view=iotedge-1.4&tabs=c&pivots=iotedge-dev-ext) and even a [CLI](https://learn.microsoft.com/en-us/azure/iot-edge/debug-module-vs-code?view=iotedge-1.4&tabs=c&pivots=iotedge-dev-cli) can help with the most common developer tasks. 
 
@@ -28,11 +28,11 @@ $edge hub is available as a docker image in `mcr.microsoft.com/azureiotedge-hub:
 
 ## Provisioning $edgeHub
 
-When you create an IoT Edge device identity in Azuere IoT Hub, it will include the module identities for $edgeAgent and $edgeHub system modules. However, the modules are not _initialized_ and do not include the connection string we will need to configure our local instance of $edgeHub. 
+When you create an IoT Edge device identity in Azuere IoT Hub, it will include the module identities for `$edgeAgent` and `$edgeHub` system modules. However, the modules are not _initialized_ and do not include the connection string we will need to configure our local instance of $edgeHub. 
 
 In a _real_ environment, this iotedge runtime takes care of initializing the system modules, however it implies to connect, at least one time, the iotedge runtime.
 
-Instead, I'm using the dotnet tool [`aziotedge-modinit`](https://www.nuget.org/packages/aziotedge-modinit) to initialize the $edgeHub module, so we can get the connection string.
+Instead, I'm using the dotnet tool [`aziotedge-modinit`](https://www.nuget.org/packages/aziotedge-modinit) to initialize the `$edgeHub`` module, so we can get the connection string.
 
 ### .env configuration files
 
@@ -48,7 +48,7 @@ $HUB_ID=<hubname>
 $EDGE_ID=<edge_device_id>
 ```
 
-Initialize the $edgeHub module identity:
+Initialize the `$edgeHub` module identity:
 
 ```bash
 source .env
@@ -117,7 +117,7 @@ docker run -it --rm \
 
 If everything goes as expected, you should see this output.
 
-![edgeHubScreen](../assets/edgehub_screen.png)
+![edgeHubScreen](/assets/edgehub_screen.png)
 
 ## Create a dotnet Module
 
@@ -142,7 +142,7 @@ az iot hub module-identity create -n $HUB_ID -d $EDGE_ID -m $MODULE_ID
 modcs=$(az iot hub module-identity connection-string show -n $HUB_ID -d $EDGE_ID -m ModuleA -o tsv)
 ```
 
-# Run Debug the custom module
+# Run/Debug the custom module
 
 Finally, you can run or debug this project by tweaking the configuration so it will connect to the local $edgeHub instance, using the certificate configured for TLS:
 
@@ -151,5 +151,7 @@ export IotHubConnectionString="$modcs;GatewayHostName=localhost"
 export EdgeModuleCACertificateFile="../_certs/ca.pem"
 dotnet run
 ```
+
+Or you can configure your IDE to set these two environment variables (`launch.json` for VSCode, or `launchSettings.json` for VS) before starting a debugging session.
 
 The complete sample is available in [https://github.com/ridomin/iotedge-modules-demo](https://github.com/ridomin/iotedge-modules-demo) (CodeSpaces ready)
