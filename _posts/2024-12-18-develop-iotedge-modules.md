@@ -12,23 +12,23 @@ However, most of these tools are in _maintenance_ mode, with no major investment
 
 # An alternative approach to develop IoTEdge modules
 
-A module is just an application, running as a docker container, that communicates with the a system module called $edgeHub via HTTP, AMQP or MQTT protocols. To develop a module we need a local instance of $edgeHub that we can target from the machine we use to develop.
+A module is just an application, running as a docker container, that communicates with the a system module called `$edgeHub` via HTTP, AMQP or MQTT protocols. To develop a module we need a local instance of `$edgeHub` that we can target from the machine we use to develop.
 
 In this post, I'm exploring a different approach to configure your workstation so you can develop and debug modules with your favourite IDE.
 
 > Note, this sample is using dotnet, but the same concepts should be applicable in other languages.
 
-# How to run $edgeHub locally
+# How to run `$edgeHub` locally
 
 $edge hub is available as a docker image in `mcr.microsoft.com/azureiotedge-hub:1.4`, and we need to perform some pre-liminary tasks before running locally: 
 
-- Initialize the $edgeHub  identity in Azure IoT Hub
-- Configure $edgeHub module twin
+- Initialize the `$edgeHub`  identity in Azure IoT Hub
+- Configure `$edgeHub` module twin
 - Provide certificates to configure the TLS connection
 
-## Provisioning $edgeHub
+## Provisioning `$edgeHub`
 
-When you create an IoT Edge device identity in Azuere IoT Hub, it will include the module identities for $edgeAgent and $edgeHub system modules. However, the modules are not _initialized_ and do not include the connection string we will need to configure our local instance of $edgeHub. 
+When you create an IoT Edge device identity in Azuere IoT Hub, it will include the module identities for $edgeAgent and `$edgeHub` system modules. However, the modules are not _initialized_ and do not include the connection string we will need to configure our local instance of `$edgeHub`. 
 
 In a _real_ environment, this iotedge runtime takes care of initializing the system modules, however it implies to connect, at least one time, the iotedge runtime.
 
@@ -57,9 +57,9 @@ dotnet tool install -g aziotedge-modinit
 aziotedge-modinit --moduleId='$edgeHub' --ConnectionStrings:IoTEdge="$edgeConnStr"
 ```
 
-## Configuring $edgeHub
+## Configuring `$edgeHub`
 
-At startup, $edgeHub requires two properties to be configured in the module twin, however as this is a system module, we cannot update the twin, neither using the portal, or the CLI. 
+At startup, `$edgeHub` requires two properties to be configured in the module twin, however as this is a system module, we cannot update the twin, neither using the portal, or the CLI. 
 
 ```json
  "$edgeHub": {
@@ -95,9 +95,9 @@ chmod +r _certs/*
 cp _certs/localhost.pem _certs/ca.pem
 ```
 
-## Running $edgeHub locally with docker
+## Running `$edgeHub` locally with docker
 
-Now that we have the certs, and the $edgeHub connection string, we can run the docker container with:
+Now that we have the certs, and the `$edgeHub` connection string, we can run the docker container with:
 
 ```bash
 source .env
@@ -139,12 +139,12 @@ dotnet new aziotedgemodule -o $MODULE_ID
 ```bash
 source ../.env
 az iot hub module-identity create -n $HUB_ID -d $EDGE_ID -m $MODULE_ID
-modcs=$(az iot hub module-identity connection-string show -n $HUB_ID -d $EDGE_ID -m ModuleA -o tsv)
+modcs=$(az iot hub module-identity connection-string show -n $HUB_ID -d $EDGE_ID -m $MODULE_ID -o tsv)
 ```
 
 # Run Debug the custom module
 
-Finally, you can run or debug this project by tweaking the configuration so it will connect to the local $edgeHub instance, using the certificate configured for TLS:
+Finally, you can run or debug this project by tweaking the configuration so it will connect to the local `$edgeHub` instance, using the certificate configured for TLS:
 
 ```bash
 export IotHubConnectionString="$modcs;GatewayHostName=localhost"
