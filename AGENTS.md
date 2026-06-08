@@ -2,6 +2,13 @@
 
 Guidance for AI coding agents working in this repository.
 
+## Agent Operations
+
+When performing operations that require interacting with GitHub, such as creating branches, commits, or pull requests, use the `gh` CLI. For example:
+
+\`\`\`bash
+gh pr create --base main --head <branch-name> --title "Your Title" --body "Your Description"
+\`\`\`
 ## Project overview
 
 - This repository contains the source for **Rido Blog** at <https://blog.rido.dev>.
